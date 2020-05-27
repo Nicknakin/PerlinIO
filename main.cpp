@@ -5,19 +5,19 @@
 #include <string>
 
 int main(int argc, char* argv[]) {
-    if(argc < 2){
-        std::cout << "Usage is " << argv[0] << " Dimension1 Dimension2 Dimension3..." << std::endl;
+    if(argc < 3){
+        std::cout << "Usage is " << argv[0] << " Octaves Dimension1 Dimension2 Dimension3..." << std::endl;
         return 0;
     }
-    std::vector<std::string> args{argv+1, argv+argc};
+    std::vector<std::string> args{argv+2, argv+argc};
     std::vector<int> dims;
     dims.resize(args.size());
     std::transform(args.begin(), args.end(), dims.begin(), [] (auto a) { return std::stoi(a);});
-    Perlin ng{dims};
+    Perlin ng{dims, std::stoi(argv[1])};
     std::string in;
     while(getline(std::cin, in)){
         std::istringstream numstring{in};
-        std::vector<float> nums;
+        std::vector<double> nums;
         nums.resize(dims.size());
         for(auto &num : nums)
             if(numstring)
